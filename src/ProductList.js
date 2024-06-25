@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { Box, Text, VStack, Center } from 'native-base';
+import { Box, Text} from 'native-base';
 
 export default function ProductList() {
     const products = ["Learning React", "Pro React", "Beginning React"];
