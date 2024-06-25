@@ -1,1 +1,1 @@
-"# ?ng d?ng React Native c?a t“i" 
+"# React Native Inter" 
