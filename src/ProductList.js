@@ -1,20 +1,44 @@
-import React from 'react';
-import { FlatList } from 'react-native';
-import { Box, Text} from 'native-base';
-
+import React, { useState } from 'react';
+import ProductCard from './ProductCard';
+import { Box, FlatList } from 'native-base';
 export default function ProductList() {
-    const products = ["Learning React", "Pro React", "Beginning React"];
-    const renderItem = ({ item }) => (
-        <Box borderBottomWidth="1" borderColor="coolGray.200" py="4" px="6">
-            <Text fontSize="lg">{item}</Text>
-        </Box>
+    const getProducts = () => {
+        return [
+            {
+                imageUrl: "http://loremflickr.com/150/150?random=1",
+                productName: "Product 1",
+                releasedDate: "May 31, 2016",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor, tellus laoreet venenatis facilisis, enim ex faucibus nulla, id rutrum ligula purus sit amet mauris. ",
+                rating: 4,
+                numOfReviews: 2
+            },
+            {
+                imageUrl: "http://loremflickr.com/150/150?random=2",
+                productName: "Product 2",
+                releasedDate: "October 31, 2016",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor, tellus laoreet venenatis facilisis, enim ex faucibus nulla, id rutrum ligula purus sit amet mauris. ",
+                rating: 2,
+                numOfReviews: 12
+            },
+            {
+                imageUrl: "http://loremflickr.com/150/150?random=3",
+                productName: "Product 3",
+                releasedDate: "July 30, 2016",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor, tellus laoreet venenatis facilisis, enim ex faucibus nulla, id rutrum ligula purus sit amet mauris. ",
+                rating: 5,
+                numOfReviews: 2
+            }];
+    }
+    const products = getProducts();
+
+    const listProducts = products.map((product) =>
+        <ProductCard key={product.productName} data={product} />
     );
+
     return (
-        <FlatList
-            data={products}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
-        />
+        <Box>
+            {listProducts}
+        </Box>
 
     );
 }

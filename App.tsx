@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-  Box, NativeBaseProvider, StatusBar
+  Box, NativeBaseProvider, StatusBar, Text, ScrollView
 } from 'native-base';
-import Rating from './src/Rating';
+
+import ProductList from './src/ProductList';
 
 const App = () => {
   const isValid = false;
@@ -12,17 +13,23 @@ const App = () => {
 
       <StatusBar hidden={false} barStyle="light-content" />
       <Box
-        bg="#f5f5f0" w="100%" h="60"
-        borderBottomWidth="1"
-        borderColor="coolGray.200"
-      />
-
-      <Rating rating='1' />
-      <Rating rating='2' />
-      <Rating rating='3' />
-      <Rating rating='4' />
-      <Rating rating='5' />
-
+        bg="#d4d4d4"
+        height={16}
+        justifyContent="center"
+        alignItems="center"
+        shadow={3}
+      >
+        <Text
+          color="#000000"
+          fontSize="xl"
+          fontWeight="bold"
+        >
+          List of Products
+        </Text>
+      </Box>
+      <ScrollView>
+        <ProductList />
+      </ScrollView>
     </NativeBaseProvider>
   );
 }

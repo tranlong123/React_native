@@ -7,61 +7,68 @@ import { TouchableWithoutFeedback } from 'react-native';
 export default function Rating(props) {
     const [rating, setRating] = useState(props.rating);
 
+    const styles = {
+        starStyle: {
+            color: 'orange'
+        }
+    }
+
+
     return (
         <Row>
             <Heading>Rating: {rating} </Heading>
             {/* Hiển thị rating với các icon tương ứng */}
             {rating >= 1 ? (
                 <TouchableWithoutFeedback onPress={() => setRating(1)}>
-                    <Icon as={FontAwesome} name="star" size="md" color="black" margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             ) : (
                 <TouchableWithoutFeedback onPress={() => setRating(1)}>
-                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             )}
             {rating >= 2 ? (
                 <TouchableWithoutFeedback onPress={() => setRating(2)}>
 
-                    <Icon as={FontAwesome} name="star" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             ) : (
                 <TouchableWithoutFeedback onPress={() => setRating(2)}>
 
-                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             )}
             {rating >= 3 ? (
                 <TouchableWithoutFeedback onPress={() => setRating(3)}>
 
-                    <Icon as={FontAwesome} name="star" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             ) : (
                 <TouchableWithoutFeedback onPress={() => setRating(3)}>
 
-                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             )}
             {rating >= 4 ? (
                 <TouchableWithoutFeedback onPress={() => setRating(4)}>
 
-                    <Icon as={FontAwesome} name="star" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             ) : (
                 <TouchableWithoutFeedback onPress={() => setRating(4)}>
 
-                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             )}
             {rating >= 5 ? (
                 <TouchableWithoutFeedback onPress={() => setRating(5)}>
 
-                    <Icon as={FontAwesome} name="star" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             ) : (
                 <TouchableWithoutFeedback onPress={() => setRating(5)}>
 
-                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  margin={1} marginTop={1}/>
+                    <Icon as={FontAwesome} name="star-o" size="md" color="black"  style={styles.starStyle} />
                 </TouchableWithoutFeedback>
             )}
         </Row>
