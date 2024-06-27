@@ -1,9 +1,11 @@
 import React from 'react';
 import {
-  Box, NativeBaseProvider, StatusBar, Text, ScrollView
+  Box, NativeBaseProvider,
+  StatusBar, Text, ScrollView
 } from 'native-base';
 
 import ProductList from './src/ProductList';
+import MyCard from './src/MyCard';
 
 const App = () => {
   const isValid = false;
@@ -19,17 +21,21 @@ const App = () => {
         alignItems="center"
         shadow={3}
       >
-        <Text
+        {/* <Text
           color="#000000"
           fontSize="xl"
           fontWeight="bold"
         >
           List of Products
-        </Text>
+        </Text> */}
+        <MyCard>
+          This is a long sentence, and I want to insert content into the
+          Card component from the outside.
+        </MyCard>
       </Box>
-      <ScrollView>
+      {/* <ScrollView>
         <ProductList />
-      </ScrollView>
+      </ScrollView> */}
     </NativeBaseProvider>
   );
 }

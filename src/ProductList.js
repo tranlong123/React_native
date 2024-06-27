@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ProductCard from './ProductCard';
-import { Box, FlatList } from 'native-base';
+import { Box, Heading } from 'native-base';
 export default function ProductList() {
     const getProducts = () => {
         return [
@@ -37,7 +37,12 @@ export default function ProductList() {
 
     return (
         <Box>
-            {listProducts}
+            {listProducts.length > 0 ? (
+                <Box>{listProducts}</Box>
+            ) : (
+                <Heading>No Products to display</Heading>
+            )}
+
         </Box>
 
     );
