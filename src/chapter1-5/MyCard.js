@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, VStack, Divider, Text } from 'native-base';
+import { Box, Divider, Text } from 'native-base';
 export default function MyCard(props) {
     return (
         <Box
