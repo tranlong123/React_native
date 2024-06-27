@@ -83,6 +83,10 @@ const GitHubApp = () => {
                         fontSize={18}
                         placeholder='Search'
                         onChangeText={text => setSearchTerm(text)}
+                        _focus= {{
+                            borderColor: "#d4d4d4",
+                            backgroundColor: "#d4d4d4"
+                          }}             
                     />
                 </Box>
                 <Button
