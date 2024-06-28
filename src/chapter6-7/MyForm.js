@@ -60,7 +60,11 @@ export const MyForm = () => {
                     />
                 </Stack>
                 {emailError.length > 0 &&
-                    <Badge danger>
+                    <Badge
+                        style={{
+                            backgroundColor: '#ff0000', borderRadius: 15, width: 'auto',
+                            alignSelf: 'flex-start', marginBottom: 2, marginLeft:2
+                        }}>
                         <Text>{emailError}</Text>
                     </Badge>}
                 <Stack paddingLeft={4} paddingRight={4}>
@@ -71,7 +75,11 @@ export const MyForm = () => {
                     />
                 </Stack>
                 {passwordError.length > 0 &&
-                    <Badge danger>
+                    <Badge
+                        style={{
+                            backgroundColor: '#ff0000', borderRadius: 15, width: 'auto',
+                            alignSelf: 'flex-start', marginBottom: 2,marginLeft:2
+                        }}>
                         <Text>{passwordError}</Text>
                     </Badge>}
                 <Stack>
