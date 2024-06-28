@@ -62,7 +62,7 @@ export const MyForm = () => {
                 {emailError.length > 0 &&
                     <Badge
                         style={{
-                            backgroundColor: '#ff0000', borderRadius: 15, width: 'auto',
+                            backgroundColor: '#ff0000', borderRadius: 15,
                             alignSelf: 'flex-start', marginBottom: 2, marginLeft:2
                         }}>
                         <Text>{emailError}</Text>
@@ -77,7 +77,7 @@ export const MyForm = () => {
                 {passwordError.length > 0 &&
                     <Badge
                         style={{
-                            backgroundColor: '#ff0000', borderRadius: 15, width: 'auto',
+                            backgroundColor: '#ff0000', borderRadius: 15, 
                             alignSelf: 'flex-start', marginBottom: 2,marginLeft:2
                         }}>
                         <Text>{passwordError}</Text>
