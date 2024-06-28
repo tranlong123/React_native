@@ -7,10 +7,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import ToDoDetail from './src/chapter-9/ToDoDetail';
 import ToDoList from './src/chapter-9/ToDoList';
-
-// Tạo stack navigation
-const Stack = createStackNavigator();
-
 // Định nghĩa kiểu dữ liệu cho đối tượng Todo
 interface Todo {
   id: number;
@@ -42,6 +38,7 @@ const TodosContext = React.createContext<{
   dispatch: React.Dispatch<Action>;
 }>({ state: todosInitialState, dispatch: () => null });
 
+const Stack = createStackNavigator();
 
 
 // Định nghĩa reducer //với kiểu dữ liệu cụ thể
@@ -75,14 +72,12 @@ const App = () => {
 
   return (
     <TodosContext.Provider value={{ state, dispatch }}>
-      <NativeBaseProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="ToDoList">
-            <Stack.Screen name="ToDoList" component={ToDoList} />
-            <Stack.Screen name="ToDoDetail" component={ToDoDetail} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </NativeBaseProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="ToDoList">
+          <Stack.Screen name="ToDoList" component={ToDoList} />
+          <Stack.Screen name="ToDoDetail" component={ToDoDetail} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </TodosContext.Provider>
 
   );
