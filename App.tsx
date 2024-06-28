@@ -1,84 +1,83 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 import {
   NativeBaseProvider, StatusBar,
   Button, Box, Text
 } from 'native-base';
 
-const initialState = {
-  count: 0
+import ToDoList from './src/chapter8/ToDoList';
+
+// Định nghĩa kiểu dữ liệu cho đối tượng Todo
+interface Todo {
+  id: number;
+  text: string;
 }
 
-// Định nghĩa kiểu cho State
-interface State {
-  count: number;
+// Định nghĩa kiểu dữ liệu cho state
+interface TodosState {
+  todos: Todo[];
 }
-
-// Định nghĩa kiểu cho Action
+// Định nghĩa kiểu dữ liệu cho các action
 type Action =
-  | { type: 'increment' }
-  | { type: 'decrement' }
-  | { type: 'reset' };
+  | { type: 'add'; payload: Todo }
+  | { type: 'delete'; payload: { id: number } }
+  | { type: 'edit'; payload: { id: number; text: string } };
+
+// Initial State
+const todosInitialState: TodosState = {
+  todos: [
+    { id: 1, text: "finishing writing hooks chapter" },
+    { id: 2, text: "play with kids" },
+    { id: 3, text: "read bible" }
+  ]
+};
+
+// Cập nhật TodosContext để chấp nhận kiểu dữ liệu cụ thể
+const TodosContext = React.createContext<{
+  state: TodosState;
+  dispatch: React.Dispatch<Action>;
+}>({ state: todosInitialState, dispatch: () => null });
+
+// Định nghĩa reducer //với kiểu dữ liệu cụ thể
+function todosReducer(state: TodosState, action: Action) {
+  switch (action.type) {
+    case 'add':
+      // add new todo onto array
+      const addedToDos = [...state.todos, action.payload]
+      // spread our state and assign todos
+      return { ...state, todos: addedToDos }
+    case 'edit':
+      const updatedToDo = { ...action.payload }
+      const updatedToDoIndex = state.todos.findIndex(t => t.id === action.payload.id)
+      const updatedToDos = [
+        ...state.todos.slice(0, updatedToDoIndex),
+        updatedToDo,
+        ...state.todos.slice(updatedToDoIndex + 1)
+      ];
+      return { ...state, todos: updatedToDos }
+    case 'delete':
+      const filteredTodoState = state.todos.filter(todo => todo.id !== action.payload.id)
+      return { ...state, todos: filteredTodoState }
+    default:
+      return todosInitialState
+  }
+}
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
-  return (
-    <NativeBaseProvider>
-      <StatusBar hidden={false} barStyle="light-content" />
-      <Box
-        height={16}
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="row"
-        bg="#f5f5f0"
-      >
-        <Text>Count: {state.count}</Text>
-      </Box>
-      <Button onPress={() => dispatch({ type: 'increment' })}>
-        <Text color="white">Increment</Text>
-      </Button>
-      <Button
-       onPress={() => dispatch({ type: 'decrement' })}
-       style={{
-        backgroundColor: '#16a34a'
-       }}
-       >
-        <Text color="white">Decrement</Text>
-      </Button>
-      <Button 
-      onPress={() => dispatch({ type: 'reset' })}
-      style={{
-        backgroundColor: '#f97316'
-       }}
-      >
-        <Text color="white">Reset</Text>
-      </Button>
 
-    </NativeBaseProvider>
+  const [state, dispatch] = useReducer(todosReducer, todosInitialState)
+
+  return (
+    <TodosContext.Provider value={{ state, dispatch }}>
+
+      <NativeBaseProvider>
+        <StatusBar hidden={false} barStyle="light-content" />
+        <ToDoList />
+
+      </NativeBaseProvider>
+    </TodosContext.Provider>
 
   );
 }
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "increment":
-//       return { count: state.count + 1 }
-//     case "decrement":
-//       return { count: state.count - 1 }
-//     case "reset":
-//       return initialState
-//     default:
-//       return initialState
-//   }
-// }
-const reducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    case 'decrement':
-      return { count: state.count - 1 };
-    case 'reset':
-      return initialState;
-    default:
-      return state;
-  }
-};
+
+export { TodosContext }
 export default App;
