@@ -1,33 +1,52 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react';
 import { TodosContext } from '../../App';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Text, Box, Button } from 'native-base';
-import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native';
-import uuid from 'uuid-random';
+import { StyleSheet, View, TouchableOpacity, TextInput } from 'react-native'
 
-export default function ToDoList(navigation) {
-    // receive state and dispatch from App.js
+import uuid from 'uuid-random';
+import axios from 'axios';
+import useAPI from '../chapter10/useAPI';
+
+export default function ToDoList({navigation}) {
     const { state, dispatch } = useContext(TodosContext);
     const [todoText, setTodoText] = useState("")
     const buttonTitle = "Add";
 
+    const handleSubmit = async () => {
+        const newToDo = { id: uuid(), text: todoText };
+        const response = await axios.post(endpoint, newToDo)
+        dispatch({ type: 'add', payload: newToDo });
+        setTodoText('');
+    }
+
+    const endpoint = "http://10.10.180.135:3000/todos/"
+    const savedTodos = useAPI(endpoint)
+
+    useEffect(() => {
+        dispatch({ type: "get", payload: savedTodos })
+    }, [savedTodos]) // dispatch whenever savedTodos changes
+
     //
-    const deleteRow = (todo) => {
-        dispatch({ type: 'delete', payload: todo });
-    };
-    const editRow = (todo, rowMap) => {
-        if (rowMap[todo.id]) {
-            rowMap[todo.id].closeRow();
-        }
-        navigation.navigate('ToDoDetail', todo)
+    const deleteRow = async (todo) => {        
+        await axios.delete(endpoint + todo.id);
+        dispatch({type:'delete',payload:todo});
     };
 
+
+    const editRow = (todo,rowMap) => {        
+        if (rowMap[todo.id]) {
+            rowMap[todo.id].closeRow();
+        }        
+        navigation.navigate('ToDoDetail', todo);            
+    };
     // renderItem SwipeListView
     const renderItem = data => (
         <View style={styles.rowFront}>
-            <Text>{data.item.text}</Text>
+            <Text>{data.item?.text}</Text>
         </View>
     );
+
     // renderHiddenItem SwipeListView
     const renderHiddenItem = (data, rowMap) => (
         <View style={styles.rowBack}>
@@ -46,11 +65,8 @@ export default function ToDoList(navigation) {
         </View>
     );
 
-    const handleSubmit = () => {
-        const newToDo = { id: uuid(), text: todoText };
-        dispatch({ type: 'add', payload: newToDo });
-        setTodoText('');
-    }
+    // const log = logger.createLogger();
+    // log.info(state.todos);
     return (
         <Box>
             <Box style={styles.header}
@@ -90,7 +106,7 @@ export default function ToDoList(navigation) {
                 renderHiddenItem={renderHiddenItem}
                 leftOpenValue={75}
                 rightOpenValue={-75}
-            />
+            /> 
         </Box>
     );
 }
